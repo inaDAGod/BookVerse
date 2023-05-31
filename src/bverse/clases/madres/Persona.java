@@ -32,6 +32,6 @@ public abstract class Persona {
 		return "Persona [nombre=" + nombre + ", fotoUrl=" + fotoUrl + "]";
 	}
 	
-	public abstract void agregar();
+	
 
 }

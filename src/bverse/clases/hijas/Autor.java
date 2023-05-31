@@ -27,12 +27,13 @@ public class Autor extends Persona{
 	public void setLibros(ArrayList<Publicacion> libros) {
 		this.libros = libros;
 	}
-
-	@Override
-	public void agregar() {
-		// TODO Auto-generated method stub
-		
+	
+	public void agregarPubli(Publicacion pu) {
+		this.libros.add(pu);
 	}
+	
+
+	
 	
 	
 	

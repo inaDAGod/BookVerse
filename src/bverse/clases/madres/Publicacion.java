@@ -1,5 +1,6 @@
 package bverse.clases.madres;
 
+import bverse.categorizaciones.Estado;
 import bverse.clases.hijas.*;
 
 public class Publicacion {
@@ -35,6 +36,7 @@ public class Publicacion {
 		this.calificacion = calificacion;
 		this.resenia = resenia;
 	}
+	
 
 	public String getISBM() {
 		return ISBM;
@@ -140,21 +142,9 @@ public class Publicacion {
 		this.resenia = resenia;
 	}
 	
-	public void cambiarEstado() {
-		
-	}
-	public void calificar() {
-		
-	}
-	public void reseñar() {
-		
-	}
-	static void añadir() {
-		
-	}
-	public void cambiarEstante() {
-		
-	}
+	
+	
+	
 	
 	
 }

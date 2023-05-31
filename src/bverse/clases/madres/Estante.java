@@ -31,8 +31,26 @@ public abstract class Estante {
 		this.publicaciones = publicaciones;
 	}
 	
-	public abstract void agregarLibro();
-	public abstract void eliminarLibro();
-	public abstract void vaciarEstante();
+	public  void agregarLibro(Publicacion publi) {
+		this.publicaciones.add(publi);
+	}
+	
+	public void eliminarLibro(String titulo) {
+		ArrayList <Publicacion> pub = new ArrayList<Publicacion>();
+		for(Publicacion p : this.publicaciones) {
+			if(p.getTitulo() != titulo) {
+				pub.add(p);
+			}
+			
+		}
+		this.publicaciones = pub;
+	}
+	
+	public void vaciarEstante() {
+		ArrayList <Publicacion> pub = new ArrayList<Publicacion>();
+		this.publicaciones = pub;
+	}
+	
+	
 	
 }
