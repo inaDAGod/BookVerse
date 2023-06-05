@@ -9,6 +9,7 @@ public class Libro extends Publicacion{
 	private Autor autor;
 	private int paginas;
 	private int genero;
+	private String genero2;
 	
 	public Libro(String iSBM, String titulo, String precio, String portadaUrl, int estado, String calificacion,
 			String resenia, String calpromedio, String descripcion, Autor autor, int paginas, int genero) {
@@ -28,8 +29,28 @@ public class Libro extends Publicacion{
 		this.paginas = 0;
 		this.genero = Genero.desconocido;
 	}
+	public Libro() {
+		super("","", "", "", Estado.limbo, Tipo.libro, "", "");
+		this.calpromedio = "";
+		this.descripcion = "";
+		this.autor = new Autor();
+		this.paginas = 0;
+		this.genero = Genero.desconocido;
+	}
 	
 
+
+	
+
+	public Libro(String iSBM, String titulo, String precio, String portadaUrl, String calpromedio, String descripcion, Autor autor, int paginas,
+			String genero2) {
+		super(iSBM, titulo, precio, portadaUrl, Estado.limbo, Tipo.libro, "", "");
+		this.calpromedio = calpromedio;
+		this.descripcion = descripcion;
+		this.autor = autor;
+		this.paginas = paginas;
+		this.genero2 = genero2;
+	}
 
 	public String getCalpromedio() {
 		return calpromedio;
@@ -61,6 +82,14 @@ public class Libro extends Publicacion{
 	public void setGenero(int genero) {
 		this.genero = genero;
 	}
+
+	@Override
+	public String toString() {
+		return "Libro [calpromedio=" + calpromedio + ", descripcion=" + descripcion + ", autor=" + autor + ", paginas="
+				+ paginas + ", genero=" + genero + ", genero2=" + genero2 + "]";
+	}
+	
+	
 
 	
 

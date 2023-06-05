@@ -26,17 +26,22 @@ public class Inicio extends JFrame {
         setTitle("Home");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 600, 400);
-        
+        //Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        //setBounds(100, 100, (int)screenSize.getWidth(), (int) screenSize.getHeight());
         JMenuBar menuBar = new JMenuBar();
         setJMenuBar(menuBar);
         
         JMenu mnAra = new JMenu("Acceso Rapido");
+        mnAra.setBackground(new Color(0, 139, 139));
+        mnAra.setFont(new Font("Gujarati MT", Font.PLAIN, 14));
         menuBar.add(mnAra);
         
         JMenuItem mntmDeseados = new JMenuItem("Deseados");
+        mntmDeseados.setFont(new Font("Gujarati MT", Font.PLAIN, 14));
         mnAra.add(mntmDeseados);
         
         JMenuItem mntmFavoritos = new JMenuItem("Favoritos");
+        mntmFavoritos.setFont(new Font("Gujarati MT", Font.PLAIN, 14));
         mnAra.add(mntmFavoritos);
         contentPane = new JPanel();
         contentPane.setBackground(new Color(245, 255, 250));
