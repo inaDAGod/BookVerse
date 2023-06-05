@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import bverse.clases.madres.*;
 
 public class Biblioteca extends Estante{
-
+	
 	public Biblioteca( ArrayList<Publicacion> publicaciones) {
 		super("Biblioteca", "", publicaciones);
 		// TODO Auto-generated constructor stub
@@ -15,14 +15,15 @@ public class Biblioteca extends Estante{
 		// TODO Auto-generated constructor stub
 	}
 	public Biblioteca(String descripccion) {
-		super("Biblioteca", descripccion,null);
+		super("Biblioteca", descripccion,new ArrayList<>());
 		// TODO Auto-generated constructor stub
 	}
 	public Biblioteca() {
-		super("Biblioteca", "",null);
+		super("Biblioteca", "",new ArrayList<>());
 		// TODO Auto-generated constructor stub
 	}
-
+	
+	
 	
 
 	

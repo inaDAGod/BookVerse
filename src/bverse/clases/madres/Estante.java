@@ -6,6 +6,7 @@ public abstract class Estante {
 	private String nombre;
 	private String descripccion;
 	private ArrayList <Publicacion> publicaciones;
+	
 	public Estante(String nombre, String descripccion, ArrayList<Publicacion> publicaciones) {
 		super();
 		this.nombre = nombre;
@@ -31,7 +32,12 @@ public abstract class Estante {
 		this.publicaciones = publicaciones;
 	}
 	
-	public  void agregarLibro(Publicacion publi) {
+	//public abstract void agregarLibro();
+	//public abstract void eliminarLibro();
+	//public abstract void vaciarEstanteria();
+	
+	
+	public void agregarLibro(Publicacion publi) {
 		this.publicaciones.add(publi);
 	}
 	

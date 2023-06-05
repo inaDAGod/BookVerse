@@ -12,6 +12,11 @@ public class Autor extends Persona{
 		this.libros = libros;
 		
 	}
+	public Autor() {
+		super("", "");
+		this.libros = null;
+		
+	}
 	
 
 	public Autor(String nombre, String fotoUrl) {
