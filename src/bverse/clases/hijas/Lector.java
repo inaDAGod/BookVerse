@@ -8,10 +8,6 @@ public class Lector  extends Persona{
 	private int presupuesto;
 	private String contrasenia;
 	private ArrayList <Estante> estantes;
-	
-	
-
-
 
 	public Lector(String nombre, String fotoUrl, int presupuesto, String contrasenia) {
 		super(nombre, fotoUrl);

@@ -6,6 +6,7 @@ public abstract class Estante {
 	private String nombre;
 	private String descripccion;
 	private ArrayList <Publicacion> publicaciones;
+	
 	public Estante(String nombre, String descripccion, ArrayList<Publicacion> publicaciones) {
 		super();
 		this.nombre = nombre;
