@@ -46,7 +46,36 @@ public class WishList extends Estante{
 		this.preferencias = preferencias;
 	}
 	
+	public void agregarLibro(Publicacion publi,String pre) { //añade libro con frase
+		ArrayList <Publicacion> p= super.getPublicaciones();
+		p.add(publi);
+		this.preferencias.add(pre);
+	}
+	public void agregarLibro(Publicacion publi) { //añade libro sin frase
+		ArrayList <Publicacion> p= super.getPublicaciones();
+		p.add(publi);
+		this.preferencias.add("");
+	}
 	
+	public void eliminarLibro(String titulo) {
+		ArrayList <Publicacion> pub = new ArrayList<Publicacion>();
+		int num=0;
+		for(int i = 0; i<pub.size();i++) {
+			if(pub.get(i).getTitulo() == titulo) {
+				num = i;
+				break;
+			}
+		}
+		pub.remove(num);
+		this.preferencias.remove(num);
+	}
+	
+	public void vaciarEstante() {
+		ArrayList <Publicacion> pub = new ArrayList<Publicacion>();
+		ArrayList <String> f = new ArrayList<String>();
+		super.setPublicaciones(pub);
+		this.preferencias = f;
+	}
 
 	
 

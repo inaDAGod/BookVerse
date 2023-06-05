@@ -41,6 +41,38 @@ public class Favoritos extends Estante{
 	public void setFrases(ArrayList<String> frases) {
 		this.frases = frases;
 	}
+	
+	public void agregarLibro(Publicacion publi,String frase) { //añade libro con frase
+		ArrayList <Publicacion> p= super.getPublicaciones();
+		p.add(publi);
+		this.frases.add(frase);
+	}
+	public void agregarLibro(Publicacion publi) { //añade libro sin frase
+		ArrayList <Publicacion> p= super.getPublicaciones();
+		p.add(publi);
+		this.frases.add("");
+	}
+	
+	public void eliminarLibro(String titulo) {
+		ArrayList <Publicacion> pub = new ArrayList<Publicacion>();
+		int num=0;
+		for(int i = 0; i<pub.size();i++) {
+			if(pub.get(i).getTitulo() == titulo) {
+				num = i;
+				break;
+			}
+		}
+		pub.remove(num);
+		this.frases.remove(num);
+	}
+	
+	public void vaciarEstante() {
+		ArrayList <Publicacion> pub = new ArrayList<Publicacion>();
+		ArrayList <String> f = new ArrayList<String>();
+		super.setPublicaciones(pub);
+		this.frases = f;
+	}
+	
 
 	
 	

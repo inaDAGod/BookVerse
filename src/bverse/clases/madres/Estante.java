@@ -32,7 +32,12 @@ public abstract class Estante {
 		this.publicaciones = publicaciones;
 	}
 	
-	public  void agregarLibro(Publicacion publi) {
+	//public abstract void agregarLibro();
+	//public abstract void eliminarLibro();
+	//public abstract void vaciarEstanteria();
+	
+	
+	public void agregarLibro(Publicacion publi) {
 		this.publicaciones.add(publi);
 	}
 	
