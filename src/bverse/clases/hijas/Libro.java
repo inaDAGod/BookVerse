@@ -3,8 +3,7 @@ package bverse.clases.hijas;
 import bverse.categorizaciones.*;
 
 import java.sql.*;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
@@ -133,11 +132,52 @@ public class Libro extends Publicacion{
 			
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
+			
 		}
 		conexion.close();
 		System.out.println("Datos ingresados correctamente");
 	}
-	
+	public static Libro BuscarLibro(String searchTitle) throws SQLException {
+	    Libro p = new Libro();
+	    Conexion con = new Conexion();
+	    Connection conexion = con.getConexionPostgres();
+	    
+	    String query = "SELECT * FROM publicaciones WHERE publicaciones.titulo LIKE ?";
+	    PreparedStatement statement = conexion.prepareStatement(query);
+	    statement.setString(1, "%" + searchTitle + "%");
+	    
+	    ResultSet rs = statement.executeQuery();
+	    
+	    if (rs.next()) {
+	        p = new Libro(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), new Autor(rs.getString(7)), rs.getInt(10), rs.getString(13));
+	    }
+	    
+	    conexion.close();
+	    return p;
+	}
+	public static void eliminarLibro(String titulo) throws SQLException {
+	    Conexion con = new Conexion();
+	    Connection conexion = con.getConexionPostgres();
+
+	    // Eliminar registros relacionados en la tabla "estanteria_publicacion"
+	    String deleteEstanteriaQuery = "DELETE FROM estanteria_publicacion WHERE isbm IN (SELECT isbm FROM publicaciones WHERE titulo = ?)";
+	    try (PreparedStatement deleteEstanteriaStmt = conexion.prepareStatement(deleteEstanteriaQuery)) {
+	        deleteEstanteriaStmt.setString(1, titulo);
+	        deleteEstanteriaStmt.executeUpdate();
+	    }
+
+	    // Eliminar el registro en la tabla "publicaciones"
+	    String deletePublicacionesQuery = "DELETE FROM publicaciones WHERE titulo = ?";
+	    try (PreparedStatement deletePublicacionesStmt = conexion.prepareStatement(deletePublicacionesQuery)) {
+	        deletePublicacionesStmt.setString(1, titulo);
+	        deletePublicacionesStmt.executeUpdate();
+	    }
+
+	    conexion.close();
+	    JOptionPane.showMessageDialog(null, "Se elimino correctamente el libro");
+	}
+
+
 	
 
 	

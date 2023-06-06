@@ -63,7 +63,7 @@ public class LibrosVentana extends JFrame {
         
         
 
-        JMenu mnAñadir = new JMenu("Añadir");
+        JMenu mnAñadir = new JMenu("Opciones");
         mnAñadir.setFont(new Font("Gujarati MT", Font.PLAIN, 14));
         menuBar.add(mnAñadir);
 
@@ -75,6 +75,16 @@ public class LibrosVentana extends JFrame {
             }
         });
         mnAñadir.add(mntmAñadirLibro);
+        
+        JMenuItem mntmEliminarLibro = new JMenuItem("Eliminar libro");
+        mntmEliminarLibro.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		FormularioEliminarLibro v = new FormularioEliminarLibro();
+                v.setVisible(true);
+        	}
+        });
+        
+        mnAñadir.add(mntmEliminarLibro);
 
         JMenu mnGeneros = new JMenu("Generos");
         mnGeneros.setFont(new Font("Gujarati MT", Font.PLAIN, 14));
