@@ -9,11 +9,11 @@ public class NovelaGrafica extends Publicacion{
 	private String descripcion;
 	private Autor autor;
 	private Autor ilustrador;
-	private int genero;
+	private String genero;
 	
 	public NovelaGrafica(String iSBM,String titulo, String precio, String portadaUrl, int estado, String calificacion,
 			String resenia, String calpromedio, String descripcion, Autor autor, Autor ilustrador,
-			int genero) {
+			String genero) {
 		super(iSBM, titulo, precio, portadaUrl, estado, Tipo.novela_grafica, calificacion, resenia);
 		this.calpromedio = calpromedio;
 		this.descripcion = descripcion;
@@ -28,7 +28,7 @@ public class NovelaGrafica extends Publicacion{
 		this.descripcion = "";
 		this.autor = new Autor();
 		this.ilustrador = new Autor();
-		this.genero = Genero.desconocido;
+		this.genero = "";
 	}
 	
 
@@ -57,12 +57,15 @@ public class NovelaGrafica extends Publicacion{
 	public void setIlustrador(Autor ilustrador) {
 		this.ilustrador = ilustrador;
 	}
-	public int getGenero() {
+
+	public String getGenero() {
 		return genero;
 	}
-	public void setGenero(int genero) {
+
+	public void setGenero(String genero) {
 		this.genero = genero;
 	}
+	
 	
 	
 	

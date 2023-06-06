@@ -1,7 +1,6 @@
 package bverse.clases.hijas;
 
-import bverse.categorizaciones.Estado;
-import bverse.categorizaciones.Genero;
+import bverse.categorizaciones.*;
 import bverse.categorizaciones.Tipo;
 import bverse.clases.madres.Publicacion;
 
@@ -13,10 +12,10 @@ public class Comic extends Publicacion{
 	private Autor editorial;
 	private Autor escritor;
 	private Autor ilustrador;
-	private int genero;
+	private String genero;
 	public Comic(String iSBM,String titulo, String precio, String portadaUrl, int estado, String calificacion,
 			String resenia,  String calpromedio, String descripcion, Autor editorial, Autor escritor,
-			Autor ilustrador, int genero) {
+			Autor ilustrador, String genero) {
 		super(iSBM, titulo, precio, portadaUrl, estado, Tipo.comic, calificacion, resenia);
 
 		this.calpromedio = calpromedio;
@@ -34,7 +33,7 @@ public class Comic extends Publicacion{
 		this.editorial = new Autor();
 		this.escritor = new Autor();
 		this.ilustrador = new Autor();
-		this.genero = Genero.desconocido;
+		this.genero = "";
 	}
 	
 
@@ -69,12 +68,15 @@ public class Comic extends Publicacion{
 	public void setIlustrador(Autor ilustrador) {
 		this.ilustrador = ilustrador;
 	}
-	public int getGenero() {
+
+	public String getGenero() {
 		return genero;
 	}
-	public void setGenero(int genero) {
+
+	public void setGenero(String genero) {
 		this.genero = genero;
 	}
+	
 	
 	
 	

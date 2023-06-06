@@ -1,7 +1,6 @@
 package bverse.clases.hijas;
 
-import bverse.categorizaciones.Estado;
-import bverse.categorizaciones.Genero;
+import bverse.categorizaciones.*;
 import bverse.categorizaciones.Tipo;
 import bverse.clases.madres.*;
 
@@ -9,10 +8,10 @@ public class Revista extends Publicacion{
 	
 	private String descripcion;
 	private Autor editorial;
-	private int genero;
+	private String genero;
 	
 	public Revista(String iSBM, String titulo, String precio, String portadaUrl, int estado,
-			String calificacion, String resenia, String descripcion, Autor editorial, int genero) {
+			String calificacion, String resenia, String descripcion, Autor editorial, String genero) {
 		super(iSBM, titulo, precio, portadaUrl, estado, Tipo.revista, calificacion, resenia);
 		this.descripcion = descripcion;
 		this.editorial = editorial;
@@ -22,7 +21,7 @@ public class Revista extends Publicacion{
 		super("",titulo, "", "", Estado.limbo, Tipo.comic, "", "");
 		this.descripcion = "";
 		this.editorial = new Autor();
-		this.genero = Genero.desconocido;
+		this.genero = "";
 	}
 	
 	public String getDescripcion() {
@@ -37,12 +36,13 @@ public class Revista extends Publicacion{
 	public void setEditorial(Autor editorial) {
 		this.editorial = editorial;
 	}
-	public int getGenero() {
+	public String getGenero() {
 		return genero;
 	}
-	public void setGenero(int genero) {
+	public void setGenero(String genero) {
 		this.genero = genero;
 	}
+	
 
 	
 	
