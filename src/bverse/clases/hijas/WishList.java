@@ -4,6 +4,13 @@ import java.util.*;
 
 import bverse.clases.madres.*;
 
+import java.sql.*;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+import javax.swing.JOptionPane;
+
+import bverse.baseDatos.*;
 public class WishList extends Estante{
 	
 	private ArrayList<String> preferencias; //tapa dura etc, detalles para las personas que desean comprartte
@@ -55,6 +62,26 @@ public class WishList extends Estante{
 		ArrayList <Publicacion> p= super.getPublicaciones();
 		p.add(publi);
 		this.preferencias.add("");
+	}
+	public static void insertarLibro(String ISBM)throws SQLException{
+		Conexion con=new Conexion();
+		Connection conexion = (Connection) con.getConexionPostgres();
+		PreparedStatement s;
+		String query="insert into estanteria_publicacion"
+				+ "(idEstanteria, isbm) values "
+				+ "(?,?)";
+		try {
+			s=(PreparedStatement) conexion.prepareStatement(query);
+			s.setInt(1, 1);
+			s.setString(2, ISBM);
+			s.executeUpdate();
+			System.out.println("Datos ingresados correctamente");
+			
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		conexion.close();
+		System.out.println("Datos ingresados correctamente");
 	}
 	
 	public void eliminarLibro(String titulo) {

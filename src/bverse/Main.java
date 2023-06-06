@@ -3,6 +3,7 @@ import java.sql.SQLException;
 
 import bverse.baseDatos.*;
 import bverse.clases.hijas.*;
+import bverse.ventanas.Inicio;
 
 public class Main {
 
@@ -11,7 +12,7 @@ public class Main {
 		//Conexion c = new Conexion();
 		//c.getConexionPostgres();
 		//para probar la busqueda
-		
+		/*
 		Libro l = BookSearch.buscar("Harry Potter");
 		System.out.println(l.toString());
 		try {
@@ -19,7 +20,9 @@ public class Main {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
+		Inicio i = new Inicio ();
+		i.setVisible(true);
 		
 	}
 

@@ -16,6 +16,7 @@ import bverse.clases.hijas.Biblioteca;
 import bverse.clases.hijas.Favoritos;
 import bverse.clases.hijas.Libro;
 import bverse.clases.hijas.WishList;
+import bverse.clases.madres.Estante;
 
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -37,7 +38,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
-public class FormularioLibro extends JFrame {
+public class FormularioActualiLibro extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField txtTitulo;
@@ -56,7 +57,7 @@ public class FormularioLibro extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					FormularioLibro frame = new FormularioLibro();
+					FormularioActualiLibro frame = new FormularioActualiLibro();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -68,9 +69,9 @@ public class FormularioLibro extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public FormularioLibro() {
+	public FormularioActualiLibro() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setTitle("Book Verse - Libro Form");
+		setTitle("Book Verse - Libro Form Actualizar Datos");
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		setBounds(100, 100, 1000, 600);
 		
@@ -124,16 +125,14 @@ public class FormularioLibro extends JFrame {
 		txtSearchTitle.setColumns(10);
 		
 		JButton btnBuscar = new JButton("Buscar");
-		
-		btnBuscar.setBounds(328, 69, 117, 29);
-		panelIzquierda.add(btnBuscar);
-		
 		JTextArea txtRecomendacion = new JTextArea();
 		txtRecomendacion.setBackground(new Color(255, 245, 238));
-		txtRecomendacion.setText("Se usa un sistema de busqueda para que sea mas facil\nllenar los campos del libro\nEs mas que nada una guia que puedes editar\na gusto los campos.");
+		txtRecomendacion.setText("Es recomendable que pongas el titulo exacto,\nsi vien busca el que contenga lo que ingresas\nes muy sensible a mayusculas, etc.");
 		txtRecomendacion.setEditable(false);
 		txtRecomendacion.setBounds(29, 131, 416, 69);
 		panelIzquierda.add(txtRecomendacion);
+		btnBuscar.setBounds(328, 69, 117, 29);
+		panelIzquierda.add(btnBuscar);
 		
 		JLabel lblImage = new JLabel("Portada Url del libro:");
 		lblImage.setBounds(25, 235, 165, 16);
@@ -215,45 +214,55 @@ public class FormularioLibro extends JFrame {
 		lblEstanteria.setBounds(6, 386, 231, 16);
 		panelDerecha.add(lblEstanteria);
 		
-		JComboBox comboBoxEstanterias = new JComboBox();
-		comboBoxEstanterias.setModel(new DefaultComboBoxModel(new String[] {"Biblioteca", "Wish List", "Favoritos"}));
-		comboBoxEstanterias.setBounds(185, 382, 156, 27);
-		panelDerecha.add(comboBoxEstanterias);
+		JButton btnEliminar = new JButton("Actualizar");
 		
-		JButton btnGuardar = new JButton("Guardar");
-		
-		btnGuardar.setBackground(new Color(255, 204, 255));
-		btnGuardar.setBounds(196, 448, 133, 50);
-		panelDerecha.add(btnGuardar);
+		btnEliminar.setBackground(new Color(255, 204, 255));
+		btnEliminar.setBounds(196, 448, 133, 50);
+		panelDerecha.add(btnEliminar);
 		
 		JLabel lblISBM = new JLabel("ISBM");
 		lblISBM.setBounds(403, 6, 61, 16);
 		panelDerecha.add(lblISBM);
 		
 		txtISBM = new JTextField();
+		txtISBM.setEditable(false);
 		txtISBM.setBounds(359, 28, 130, 34);
 		panelDerecha.add(txtISBM);
 		txtISBM.setColumns(10);
 		
+		JComboBox comboBoxEstanterias = new JComboBox();
+		comboBoxEstanterias.setModel(new DefaultComboBoxModel(new String[] {"Biblioteca", "Wish List", "Favoritos"}));
+		comboBoxEstanterias.setBounds(196, 382, 133, 27);
+		panelDerecha.add(comboBoxEstanterias);
+		
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Libro l = BookSearch.buscar(txtSearchTitle.getText());
-				txtTitulo.setText(l.getTitulo());
-				txtarDescrip.setText(l.getDescripcion());
-				txtAutor.setText(l.getAutor().getNombre());
-				txtPrecio.setText(l.getPrecio());
-				txtPaginas.setText(Integer.toString(l.getPaginas()));
-				txtGenero.setText(l.getGenero());
-				txtUrl.setText(l.getPortadaUrl());
-				txtISBM.setText(l.getISBM());
+				
+				try {
+					Libro l = Libro.BuscarLibro(txtSearchTitle.getText());
+					System.out.println(l.toString());
+					
+					txtTitulo.setText(l.getTitulo());
+					txtarDescrip.setText(l.getDescripcion());
+					txtAutor.setText(l.getAutor().getNombre());
+					txtPrecio.setText(l.getPrecio());
+					txtPaginas.setText(Integer.toString(l.getPaginas()));
+					txtGenero.setText(l.getGenero());
+					txtUrl.setText(l.getPortadaUrl());
+					txtISBM.setText(l.getISBM());
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
 			}
 		});
 		
 		
 		btnVistaPrevia.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
-		        Libro l = BookSearch.buscar(txtSearchTitle.getText());
-		        String urlImagen = l.getPortadaUrl();
+		        
+		        String urlImagen = txtUrl.getText();
 		        ImageIcon imglibro = null;
 		        try {
 		            imglibro = new ImageIcon(new URL(urlImagen));
@@ -274,29 +283,21 @@ public class FormularioLibro extends JFrame {
 		    }
 		});
 		
-		btnGuardar.addActionListener(new ActionListener() {
+		btnEliminar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Libro librito = BookSearch.buscar(txtSearchTitle.getText());
-				
-				
-				
-				Libro l = new Libro(txtISBM.getText(), txtTitulo.getText(), txtPrecio.getText(),txtUrl.getText(), Estado.limbo, "",
-						"", librito.getCalpromedio() , txtarDescrip.getText(), new Autor(txtAutor.getText()), Integer.parseInt(txtPaginas.getText()), txtGenero.getText());
-				
+				Libro l = new Libro(txtISBM.getText(), txtTitulo.getText(), txtPrecio.getText(),txtUrl.getText(),
+						"", txtarDescrip.getText(), new Autor(txtAutor.getText()), Integer.parseInt(txtPaginas.getText()), txtGenero.getText());
 				
 				try {
-					l.insertar();
-					
+					Libro.actualizar(l);
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
-					JOptionPane.showMessageDialog(null, "Ocurrio un error");
 				}
-				
 				if(comboBoxEstanterias.getSelectedIndex()==0) {//biblioteca
 					try {
 						
-						Biblioteca.insertarLibro(l.getISBM());
+						Estante.cambiarEstante(0, l.getISBM());
 					} catch (SQLException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -305,7 +306,7 @@ public class FormularioLibro extends JFrame {
 				if(comboBoxEstanterias.getSelectedIndex()==1) {//wishlist
 					try {
 						
-						WishList.insertarLibro(l.getISBM());
+						Estante.cambiarEstante(1, l.getISBM());
 					} catch (SQLException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -313,7 +314,7 @@ public class FormularioLibro extends JFrame {
 				}
 				if(comboBoxEstanterias.getSelectedIndex()==2) {//favoritos
 					try {
-						Favoritos.insertarLibro(l.getISBM());
+						Estante.cambiarEstante(2, l.getISBM());
 					} catch (SQLException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();

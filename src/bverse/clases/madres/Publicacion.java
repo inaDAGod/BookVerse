@@ -1,7 +1,13 @@
 package bverse.clases.madres;
 
 import bverse.clases.hijas.*;
+import java.sql.*;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
+import bverse.baseDatos.*;
+import javax.swing.JOptionPane;
 public class Publicacion {
 	private String ISBM;
 	private String titulo;
@@ -22,6 +28,13 @@ public class Publicacion {
 		this.tipo = tipo;
 		this.calificacion = calificacion;
 		this.resenia = resenia;
+	}
+	
+	public Publicacion(String iSBM, String titulo, String portadaUrl) {
+		super();
+		ISBM = iSBM;
+		this.titulo = titulo;
+		this.portadaUrl = portadaUrl;
 	}
 	
 
@@ -94,6 +107,20 @@ public class Publicacion {
 		this.resenia = resenia;
 	}
 	
+	public static ArrayList<Publicacion> lecturaMostrado() throws SQLException {
+		ArrayList<Publicacion> pu = new ArrayList<Publicacion>();
+		Conexion con=new Conexion(); //siempre
+		Connection conexion =  con.getConexionPostgres();//siempre
+		Statement s= conexion.createStatement();//permite hacer querys
+		ResultSet rs= s.executeQuery("select * from publicaciones ");//el resultado del query se guarda aca y el query va adentro
+		while (rs.next()) {//mientras tenga contenido adentro
+			Publicacion p = new Publicacion(rs.getString(1), rs.getString(2), rs.getString(4));
+			pu.add(p);
+			
+		}
+		conexion.close();//cierras la conexion
+		return pu;
+	}
 	
 	
 	
