@@ -101,6 +101,7 @@ public class Libro extends Publicacion{
 	}
 	
 	public void insertar()throws SQLException{
+		this.autor.insertar();
 		Conexion con=new Conexion();
 		Connection conexion = (Connection) con.getConexionPostgres();
 		PreparedStatement s;
@@ -128,6 +129,7 @@ public class Libro extends Publicacion{
 			s.setString(17, "");
 			s.executeUpdate();
 			System.out.println("Datos ingresados correctamente");
+			JOptionPane.showMessageDialog(null, "Se guardo correctamente el libro");
 			
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());

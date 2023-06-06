@@ -13,10 +13,12 @@ import bverse.BookSearch;
 import bverse.categorizaciones.Estado;
 import bverse.clases.hijas.Autor;
 import bverse.clases.hijas.Biblioteca;
+import bverse.clases.hijas.Favoritos;
 import bverse.clases.hijas.Libro;
 import bverse.clases.hijas.WishList;
 
 import javax.swing.JLabel;
+import javax.swing.JMenu;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -32,6 +34,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 
 public class FormularioLibro extends JFrame {
 
@@ -69,6 +73,32 @@ public class FormularioLibro extends JFrame {
 		setTitle("Book Verse - Libro Form");
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		setBounds(100, 100, 1000, 600);
+		
+		JMenuBar menuBar = new JMenuBar();
+        setJMenuBar(menuBar);
+        
+        JMenu mnIr = new JMenu("Ir a");
+        mnIr.setFont(new Font("Gujarati MT", Font.PLAIN, 14));
+        menuBar.add(mnIr);
+        
+        JMenuItem mntmHome = new JMenuItem("Home");
+        mntmHome.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		Inicio i = new Inicio();
+        		i.setVisible(true);
+        	}
+        });
+        mntmHome.setFont(new Font("Gujarati MT", Font.PLAIN, 14));
+        mnIr.add(mntmHome);
+        JMenuItem mntmPubli = new JMenuItem("Publicacciones");
+        mntmPubli.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		LibrosVentana i = new LibrosVentana();
+        		i.setVisible(true);
+        	}
+        });
+        mntmPubli.setFont(new Font("Gujarati MT", Font.PLAIN, 14));
+        mnIr.add(mntmPubli);
         //setBounds(100, 100, (int)screenSize.getWidth(), (int) screenSize.getHeight());
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -249,16 +279,44 @@ public class FormularioLibro extends JFrame {
 				Libro librito = BookSearch.buscar(txtSearchTitle.getText());
 				
 				
+				
 				Libro l = new Libro(txtISBM.getText(), txtTitulo.getText(), txtPrecio.getText(),txtUrl.getText(), Estado.limbo, "",
 						"", librito.getCalpromedio() , txtarDescrip.getText(), new Autor(txtAutor.getText()), Integer.parseInt(txtPaginas.getText()), txtGenero.getText());
 				try {
 					l.insertar();
 					
-					JOptionPane.showMessageDialog(null, "Se guardo correctamente el libro");
+					
+					
+					
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 					JOptionPane.showMessageDialog(null, "Ocurrio un error");
+				}
+				
+				if(comboBoxEstanterias.getSelectedIndex()==0) {//biblioteca
+					try {
+						Biblioteca.insertarLibro(l.getISBM());
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
+				if(comboBoxEstanterias.getSelectedIndex()==1) {//wishlist
+					try {
+						WishList.insertarLibro(l.getISBM());
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
+				if(comboBoxEstanterias.getSelectedIndex()==2) {//favoritos
+					try {
+						Favoritos.insertarLibro(l.getISBM());
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 				}
 			}
 		});
