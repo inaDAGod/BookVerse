@@ -4,6 +4,8 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 import java.awt.*;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Inicio extends JFrame {
 
@@ -76,6 +78,12 @@ public class Inicio extends JFrame {
         panelLibros.add(lblImgLib);
         
         JButton btnLibros = new JButton("Libros");
+        btnLibros.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		LibrosVentana v = new LibrosVentana();
+        		v.setVisible(true);
+        	}
+        });
         btnLibros.setFont(new Font("Gujarati MT", Font.BOLD, 17));
         btnLibros.setBounds(87, 237, 120, 48);
         panelLibros.add(btnLibros);

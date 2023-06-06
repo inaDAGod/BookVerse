@@ -11,6 +11,9 @@ import java.awt.BorderLayout;
 import java.awt.Font;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+import javax.swing.JMenuItem;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class LibrosVentana extends JFrame {
 
@@ -42,9 +45,18 @@ public class LibrosVentana extends JFrame {
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 		
-		JMenu mnAñadir = new JMenu("Añadir Libro");
+		JMenu mnAñadir = new JMenu("Añadir");
 		mnAñadir.setFont(new Font("Gujarati MT", Font.PLAIN, 14));
 		menuBar.add(mnAñadir);
+		
+		JMenuItem mntmAñadirLibro = new JMenuItem("Añadir libro");
+		mntmAñadirLibro.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				FormularioLibro v= new FormularioLibro();
+				v.setVisible(true);
+			}
+		});
+		mnAñadir.add(mntmAñadirLibro);
 		
 		JMenu mnGeneros = new JMenu("Generos");
 		mnGeneros.setFont(new Font("Gujarati MT", Font.PLAIN, 14));
