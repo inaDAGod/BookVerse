@@ -1,6 +1,15 @@
 package bverse.clases.hijas;
 
 import bverse.categorizaciones.*;
+
+import java.sql.*;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+import javax.swing.JOptionPane;
+
+import bverse.baseDatos.*;
+
 import bverse.clases.madres.*;
 
 public class Libro extends Publicacion{
@@ -89,6 +98,42 @@ public class Libro extends Publicacion{
 	public String toString() {
 		return "Libro [calpromedio=" + calpromedio + ", descripcion=" + descripcion + ", autor=" + autor + ", paginas="
 				+ paginas + ", genero=" + genero +"]";
+	}
+	
+	public void insertar()throws SQLException{
+		Conexion con=new Conexion();
+		Connection conexion = (Connection) con.getConexionPostgres();
+		PreparedStatement s;
+		String query="insert into publicaciones"
+				+ "(isbm, titulo, precio, portadaurl, calificacionpromedio, descripcion, escritor, ilustrador, editorial, paginas, idestado, idtipo_publicacion, genero, calificacion, resenia, frase, preferencia) values "
+				+ "(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+		try {
+			s=(PreparedStatement) conexion.prepareStatement(query);
+			s.setString(1, super.getISBM());
+			s.setString(2, super.getTitulo());
+			s.setString(3, super.getPrecio());
+			s.setString(4, super.getPortadaUrl());
+			s.setString(5, this.calpromedio);
+			s.setString(6, this.descripcion);
+			s.setString(7, this.autor.getNombre());
+			s.setString(8, "no");
+			s.setString(9, "no");
+			s.setInt(10, this.paginas);
+			s.setInt(11, super.getEstado());
+			s.setInt(12, Tipo.libro);
+			s.setString(13, this.genero);
+			s.setString(14, "");
+			s.setString(15, "");
+			s.setString(16, "");
+			s.setString(17, "");
+			s.executeUpdate();
+			System.out.println("Datos ingresados correctamente");
+			
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		conexion.close();
+		System.out.println("Datos ingresados correctamente");
 	}
 	
 	

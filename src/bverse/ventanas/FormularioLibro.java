@@ -3,15 +3,19 @@ package bverse.ventanas;
 import java.awt.*;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.sql.SQLException;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import bverse.BookSearch;
+import bverse.categorizaciones.Estado;
+import bverse.clases.hijas.Autor;
 import bverse.clases.hijas.Libro;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.GroupLayout;
@@ -31,12 +35,13 @@ public class FormularioLibro extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField txtTitulo;
+	private JTextField txtPrecio;
 	private JTextField txtAutor;
-	private JTextField textField_1;
 	private JTextField txtGenero;
 	private JTextField txtPaginas;
 	private JTextField txtSearchTitle;
 	private JTextField txtUrl;
+	private JTextField txtISBM;
 
 	/**
 	 * Launch the application.
@@ -138,10 +143,10 @@ public class FormularioLibro extends JFrame {
 		lblPrecio.setBounds(6, 246, 143, 16);
 		panelDerecha.add(lblPrecio);
 		
-		txtAutor = new JTextField();
-		txtAutor.setBounds(179, 237, 162, 34);
-		panelDerecha.add(txtAutor);
-		txtAutor.setColumns(10);
+		txtPrecio = new JTextField();
+		txtPrecio.setBounds(179, 237, 162, 34);
+		panelDerecha.add(txtPrecio);
+		txtPrecio.setColumns(10);
 		
 		JLabel lblBs = new JLabel("Bs");
 		lblBs.setBounds(347, 246, 61, 16);
@@ -151,10 +156,10 @@ public class FormularioLibro extends JFrame {
 		lblAutor.setBounds(6, 290, 231, 16);
 		panelDerecha.add(lblAutor);
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(179, 283, 162, 34);
-		panelDerecha.add(textField_1);
+		txtAutor = new JTextField();
+		txtAutor.setColumns(10);
+		txtAutor.setBounds(179, 283, 162, 34);
+		panelDerecha.add(txtAutor);
 		
 		JLabel lblGenero = new JLabel("Genero principal:");
 		lblGenero.setBounds(6, 341, 161, 16);
@@ -184,9 +189,19 @@ public class FormularioLibro extends JFrame {
 		panelDerecha.add(comboBoxEstanterias);
 		
 		JButton btnGuardar = new JButton("Guardar");
+		
 		btnGuardar.setBackground(new Color(255, 204, 255));
 		btnGuardar.setBounds(196, 448, 133, 50);
 		panelDerecha.add(btnGuardar);
+		
+		JLabel lblISBM = new JLabel("ISBM");
+		lblISBM.setBounds(403, 6, 61, 16);
+		panelDerecha.add(lblISBM);
+		
+		txtISBM = new JTextField();
+		txtISBM.setBounds(359, 28, 130, 34);
+		panelDerecha.add(txtISBM);
+		txtISBM.setColumns(10);
 		
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -194,9 +209,11 @@ public class FormularioLibro extends JFrame {
 				txtTitulo.setText(l.getTitulo());
 				txtarDescrip.setText(l.getDescripcion());
 				txtAutor.setText(l.getAutor().getNombre());
+				txtPrecio.setText(l.getPrecio());
 				txtPaginas.setText(Integer.toString(l.getPaginas()));
 				txtGenero.setText(l.getGenero());
 				txtUrl.setText(l.getPortadaUrl());
+				txtISBM.setText(l.getISBM());
 			}
 		});
 		
@@ -224,7 +241,23 @@ public class FormularioLibro extends JFrame {
 		        }
 		    }
 		});
-
+		
+		btnGuardar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Libro librito = BookSearch.buscar(txtSearchTitle.getText());
+				
+				Libro l = new Libro(txtISBM.getText(), txtTitulo.getText(), txtPrecio.getText(),txtUrl.getText(), Estado.limbo, "",
+						"", librito.getCalpromedio() , txtarDescrip.getText(), new Autor(txtAutor.getText()), Integer.parseInt(txtPaginas.getText()), txtGenero.getText());
+				try {
+					l.insertar();
+					JOptionPane.showMessageDialog(null, "Se guardo correctamente el libro");
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+					JOptionPane.showMessageDialog(null, "Ocurrio un error");
+				}
+			}
+		});
 	        
 		
 	}
