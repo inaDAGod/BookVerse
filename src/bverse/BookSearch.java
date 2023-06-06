@@ -130,7 +130,7 @@ public class BookSearch {
             e.printStackTrace();
         }
     }
-    static Libro buscar (String searchTerm) {
+    public static Libro buscar (String searchTerm) {
     	
     	String ISBM = "";
     	String precio = "";

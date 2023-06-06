@@ -7,6 +7,10 @@ import java.net.URL;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import bverse.BookSearch;
+import bverse.clases.hijas.Libro;
+
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -20,6 +24,8 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import java.io.IOException;
 import java.net.URL;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class FormularioLibro extends JFrame {
 
@@ -81,12 +87,13 @@ public class FormularioLibro extends JFrame {
 		txtSearchTitle.setColumns(10);
 		
 		JButton btnBuscar = new JButton("Buscar");
+		
 		btnBuscar.setBounds(328, 69, 117, 29);
 		panelIzquierda.add(btnBuscar);
 		
 		JTextArea txtRecomendacion = new JTextArea();
 		txtRecomendacion.setBackground(new Color(255, 245, 238));
-		txtRecomendacion.setText("Se usa un sistema de busqueda para que sea mas facil\nllenar los campos del libro\nEs mas que nada una guia puedes editar\na gusto los campos.");
+		txtRecomendacion.setText("Se usa un sistema de busqueda para que sea mas facil\nllenar los campos del libro\nEs mas que nada una guia que puedes editar\na gusto los campos.");
 		txtRecomendacion.setEditable(false);
 		txtRecomendacion.setBounds(29, 131, 416, 69);
 		panelIzquierda.add(txtRecomendacion);
@@ -99,6 +106,11 @@ public class FormularioLibro extends JFrame {
 		txtUrl.setBounds(25, 263, 420, 34);
 		panelIzquierda.add(txtUrl);
 		txtUrl.setColumns(10);
+		
+		JButton btnVistaPrevia = new JButton("Vista previa");
+		
+		btnVistaPrevia.setBounds(328, 230, 117, 29);
+		panelIzquierda.add(btnVistaPrevia);
 		
 		JPanel panelDerecha = new JPanel();
 		panelDerecha.setBackground(new Color(255, 240, 245));
@@ -176,22 +188,42 @@ public class FormularioLibro extends JFrame {
 		btnGuardar.setBounds(196, 448, 133, 50);
 		panelDerecha.add(btnGuardar);
 		
-		String urlImagen = "http://books.google.com/books/content?id=p3QQjwEACAAJ&printsec=frontcover&img=1&zoom=5&source=gbs_api";
-        ImageIcon imglibro = null;
-        try {
-            imglibro = new ImageIcon(new URL(urlImagen));
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
+		btnBuscar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Libro l = BookSearch.buscar(txtSearchTitle.getText());
+				txtTitulo.setText(l.getTitulo());
+				txtarDescrip.setText(l.getDescripcion());
+				txtAutor.setText(l.getAutor().getNombre());
+				txtPaginas.setText(Integer.toString(l.getPaginas()));
+				txtGenero.setText(l.getGenero());
+				txtUrl.setText(l.getPortadaUrl());
+			}
+		});
+		
+		
+		btnVistaPrevia.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        Libro l = BookSearch.buscar(txtSearchTitle.getText());
+		        String urlImagen = l.getPortadaUrl();
+		        ImageIcon imglibro = null;
+		        try {
+		            imglibro = new ImageIcon(new URL(urlImagen));
+		        } catch (MalformedURLException ei) {
+		            ei.printStackTrace();
+		        }
 
-        if (imglibro != null) {
-            Image image = imglibro.getImage();
-            ImageIcon imgLib = new ImageIcon(image);
-            panelIzquierda.setLayout(null);
-            JLabel lblImgLib = new JLabel(imgLib);
-            lblImgLib.setBounds(6, 300, 255, 173);
-            panelIzquierda.add(lblImgLib);
-        }
+		        if (imglibro != null) {
+		            Image image = imglibro.getImage();
+		            ImageIcon imgLib = new ImageIcon(image);
+		            JLabel lblImgLib = new JLabel(imgLib);
+		            lblImgLib.setBounds(6, 300, 255, 173);
+		            panelIzquierda.add(lblImgLib);
+		            
+		            panelIzquierda.revalidate(); // Actualizar el panel
+		            panelIzquierda.repaint();    // Repintar los componentes en el panel
+		        }
+		    }
+		});
 
 	        
 		
