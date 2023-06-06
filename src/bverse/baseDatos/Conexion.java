@@ -19,10 +19,10 @@ public class Conexion {
 			conn =  DriverManager.getConnection(DB_URL, USER, PASS);
 			
 		}catch(SQLException ex){
-			JOptionPane.showMessageDialog(null, "No se pudo conectar a la base de datos");
+			System.out.println("No se pudo conectar a la base de datos");
 			return null;
 		}
-		JOptionPane.showMessageDialog(null, "Conexion exitosa");
+		System.out.println("Conexion exitosa");
 		return conn;
 		
 	}

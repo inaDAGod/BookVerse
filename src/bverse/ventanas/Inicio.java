@@ -24,7 +24,7 @@ public class Inicio extends JFrame {
 
     public Inicio() {
         setTitle("Home");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setBounds(100, 100, 600, 400);
         //Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         //setBounds(100, 100, (int)screenSize.getWidth(), (int) screenSize.getHeight());

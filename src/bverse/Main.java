@@ -8,6 +8,8 @@ public class Main {
 		//System.out.println("hola");
 		//Conexion c = new Conexion();
 		//c.getConexionPostgres();
+		//para probar la busqueda
+		
 		Libro l = BookSearch.buscar("Harry Potter");
 		System.out.println(l.toString()); 
 		
