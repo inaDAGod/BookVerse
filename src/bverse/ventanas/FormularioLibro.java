@@ -12,7 +12,9 @@ import javax.swing.border.EmptyBorder;
 import bverse.BookSearch;
 import bverse.categorizaciones.Estado;
 import bverse.clases.hijas.Autor;
+import bverse.clases.hijas.Biblioteca;
 import bverse.clases.hijas.Libro;
+import bverse.clases.hijas.WishList;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -246,10 +248,12 @@ public class FormularioLibro extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				Libro librito = BookSearch.buscar(txtSearchTitle.getText());
 				
+				
 				Libro l = new Libro(txtISBM.getText(), txtTitulo.getText(), txtPrecio.getText(),txtUrl.getText(), Estado.limbo, "",
 						"", librito.getCalpromedio() , txtarDescrip.getText(), new Autor(txtAutor.getText()), Integer.parseInt(txtPaginas.getText()), txtGenero.getText());
 				try {
 					l.insertar();
+					
 					JOptionPane.showMessageDialog(null, "Se guardo correctamente el libro");
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
