@@ -85,6 +85,15 @@ public class LibrosVentana extends JFrame {
         });
         
         mnAñadir.add(mntmEliminarLibro);
+        
+        JMenuItem mntmActualizarLibro = new JMenuItem("Actualizar libro");
+        mntmActualizarLibro.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		FormularioActualiLibro f = new FormularioActualiLibro();
+        		f.setVisible(true);
+        	}
+        });
+        mnAñadir.add(mntmActualizarLibro);
 
         JMenu mnGeneros = new JMenu("Generos");
         mnGeneros.setFont(new Font("Gujarati MT", Font.PLAIN, 14));

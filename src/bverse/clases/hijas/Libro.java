@@ -176,7 +176,31 @@ public class Libro extends Publicacion{
 	    conexion.close();
 	    JOptionPane.showMessageDialog(null, "Se elimino correctamente el libro");
 	}
-
+	
+	public static void actualizar(Libro l)throws SQLException{
+		Conexion con=new Conexion();
+		Connection conexion = (Connection) con.getConexionPostgres();
+		PreparedStatement s;
+		String query="update publicaciones set titulo = ?, precio = ?, portadaurl = ?, descripcion = ?, escritor = ?, paginas = ?, genero = ?  where isbm = ?";		
+		
+		try {
+			s=(PreparedStatement) conexion.prepareStatement(query);
+			s.setString(1, l.getTitulo());
+			s.setString(2, l.getPrecio());
+			s.setString(3, l.getPortadaUrl());
+			s.setString(4, l.getDescripcion());
+			s.setString(5, l.getAutor().getNombre());
+			s.setInt(6, l.getPaginas());
+			s.setString(7, l.getGenero());
+			s.setString(8, l.getISBM());
+			s.executeUpdate();
+			JOptionPane.showMessageDialog(null, "Se actualizaron los datos");
+		} catch (SQLException e) {
+			System.err.println(e);
+		}
+		conexion.close();
+		
+	}
 
 	
 

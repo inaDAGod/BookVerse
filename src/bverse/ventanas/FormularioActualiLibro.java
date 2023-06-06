@@ -16,6 +16,7 @@ import bverse.clases.hijas.Biblioteca;
 import bverse.clases.hijas.Favoritos;
 import bverse.clases.hijas.Libro;
 import bverse.clases.hijas.WishList;
+import bverse.clases.madres.Estante;
 
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -37,7 +38,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
-public class FormularioEliminarLibro extends JFrame {
+public class FormularioActualiLibro extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField txtTitulo;
@@ -56,7 +57,7 @@ public class FormularioEliminarLibro extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					FormularioEliminarLibro frame = new FormularioEliminarLibro();
+					FormularioActualiLibro frame = new FormularioActualiLibro();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -68,9 +69,9 @@ public class FormularioEliminarLibro extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public FormularioEliminarLibro() {
+	public FormularioActualiLibro() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setTitle("Book Verse - Libro Form Eiminar");
+		setTitle("Book Verse - Libro Form Actualizar Datos");
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		setBounds(100, 100, 1000, 600);
 		
@@ -138,7 +139,6 @@ public class FormularioEliminarLibro extends JFrame {
 		panelIzquierda.add(lblImage);
 		
 		txtUrl = new JTextField();
-		txtUrl.setEditable(false);
 		txtUrl.setBounds(25, 263, 420, 34);
 		panelIzquierda.add(txtUrl);
 		txtUrl.setColumns(10);
@@ -158,7 +158,6 @@ public class FormularioEliminarLibro extends JFrame {
 		panelDerecha.add(lblTitulo);
 		
 		txtTitulo = new JTextField();
-		txtTitulo.setEditable(false);
 		txtTitulo.setBounds(110, 27, 231, 37);
 		panelDerecha.add(txtTitulo);
 		txtTitulo.setColumns(10);
@@ -168,7 +167,6 @@ public class FormularioEliminarLibro extends JFrame {
 		panelDerecha.add(lblDescripcion);
 		
 		JTextArea txtarDescrip = new JTextArea();
-		txtarDescrip.setEditable(false);
 		txtarDescrip.setBounds(16, 125, 460, 97);
 		panelDerecha.add(txtarDescrip);
 		
@@ -177,7 +175,6 @@ public class FormularioEliminarLibro extends JFrame {
 		panelDerecha.add(lblPrecio);
 		
 		txtPrecio = new JTextField();
-		txtPrecio.setEditable(false);
 		txtPrecio.setBounds(179, 237, 162, 34);
 		panelDerecha.add(txtPrecio);
 		txtPrecio.setColumns(10);
@@ -191,7 +188,6 @@ public class FormularioEliminarLibro extends JFrame {
 		panelDerecha.add(lblAutor);
 		
 		txtAutor = new JTextField();
-		txtAutor.setEditable(false);
 		txtAutor.setColumns(10);
 		txtAutor.setBounds(179, 283, 162, 34);
 		panelDerecha.add(txtAutor);
@@ -201,7 +197,6 @@ public class FormularioEliminarLibro extends JFrame {
 		panelDerecha.add(lblGenero);
 		
 		txtGenero = new JTextField();
-		txtGenero.setEditable(false);
 		txtGenero.setColumns(10);
 		txtGenero.setBounds(130, 329, 130, 34);
 		panelDerecha.add(txtGenero);
@@ -211,12 +206,15 @@ public class FormularioEliminarLibro extends JFrame {
 		panelDerecha.add(lblPaginas);
 		
 		txtPaginas = new JTextField();
-		txtPaginas.setEditable(false);
 		txtPaginas.setColumns(10);
 		txtPaginas.setBounds(373, 332, 103, 34);
 		panelDerecha.add(txtPaginas);
 		
-		JButton btnEliminar = new JButton("Eliminar");
+		JLabel lblEstanteria = new JLabel("Selecciona una estanteria:");
+		lblEstanteria.setBounds(6, 386, 231, 16);
+		panelDerecha.add(lblEstanteria);
+		
+		JButton btnEliminar = new JButton("Actualizar");
 		
 		btnEliminar.setBackground(new Color(255, 204, 255));
 		btnEliminar.setBounds(196, 448, 133, 50);
@@ -232,12 +230,10 @@ public class FormularioEliminarLibro extends JFrame {
 		panelDerecha.add(txtISBM);
 		txtISBM.setColumns(10);
 		
-		JTextArea txtrLosLibrosTambien = new JTextArea();
-		txtrLosLibrosTambien.setText("Los libros tambien se eliminan de sus respectivas estanteria\nDebes estar totalmente segur@ de la decision!");
-		txtrLosLibrosTambien.setEditable(false);
-		txtrLosLibrosTambien.setBackground(new Color(255, 192, 203));
-		txtrLosLibrosTambien.setBounds(73, 398, 391, 42);
-		panelDerecha.add(txtrLosLibrosTambien);
+		JComboBox comboBoxEstanterias = new JComboBox();
+		comboBoxEstanterias.setModel(new DefaultComboBoxModel(new String[] {"Biblioteca", "Wish List", "Favoritos"}));
+		comboBoxEstanterias.setBounds(196, 382, 133, 27);
+		panelDerecha.add(comboBoxEstanterias);
 		
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -289,11 +285,40 @@ public class FormularioEliminarLibro extends JFrame {
 		
 		btnEliminar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Libro l = new Libro(txtISBM.getText(), txtTitulo.getText(), txtPrecio.getText(),txtUrl.getText(),
+						"", txtarDescrip.getText(), new Autor(txtAutor.getText()), Integer.parseInt(txtPaginas.getText()), txtGenero.getText());
+				
 				try {
-					Libro.eliminarLibro(txtTitulo.getText());
+					Libro.actualizar(l);
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
+				}
+				if(comboBoxEstanterias.getSelectedIndex()==0) {//biblioteca
+					try {
+						
+						Estante.cambiarEstante(0, l.getISBM());
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
+				if(comboBoxEstanterias.getSelectedIndex()==1) {//wishlist
+					try {
+						
+						Estante.cambiarEstante(1, l.getISBM());
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
+				if(comboBoxEstanterias.getSelectedIndex()==2) {//favoritos
+					try {
+						Estante.cambiarEstante(2, l.getISBM());
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 				}
 			}
 		});
