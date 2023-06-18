@@ -1,7 +1,7 @@
 # BookVerse
 
 ## Contenido
-- Lenguaje JAVA, proyecto para programacion orientada a objetos
+- Lenguaje JAVA, proyecto de programacion orientada a objetos
 - Busqueda y adición de libros con [Google Books API](https://developers.google.com/books?hl=es-419)
 
 ## Descripcion 
