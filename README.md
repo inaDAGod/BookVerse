@@ -7,3 +7,7 @@ Book Verse es un innovador proyecto que utiliza la potente API de Google Play Bo
 
 En resumen, esta aplicación proporciona una plataforma integral para que los amantes de los libros organicen, controlen y exploren su biblioteca personal, facilitando la gestión de libros y el seguimiento de presupuesto.
 
+## Contenido
+- Lenguaje JAVA, proyecto para programacion orientada a objetos
+- Busqueda y adición de libros con [Google Books API](https://developers.google.com/books?hl=es-419)
+ 
